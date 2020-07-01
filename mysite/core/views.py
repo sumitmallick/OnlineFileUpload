@@ -51,7 +51,7 @@ def parse_data(request, pk):
         book = Book.objects.get(pk=pk)
         base = settings.MEDIA_ROOT
         final_result = {}
-        if book.pdf or book.pdf is not "":
+        if book.pdf or book.pdf is not "" or book.pdf is not None:
             data = [json.loads(line) for line in open(str(base)+str("/")+str(book.pdf), 'r')]
 
             for i in range(0, len(data)):
@@ -86,7 +86,6 @@ def parse_data(request, pk):
                 max_end = max(temp)
                 min_end = min(temp)
 
-                # print(max_Xw_Fault_Bitmap_no, min_Xw_Fault_Bitmap_no, min_end, max_end)
                 temp_dict = {}
                 for i in range(min_Xw_Fault_Bitmap_no, max_Xw_Fault_Bitmap_no+1):
                     temp_dict[i] = {}
@@ -115,7 +114,8 @@ def parse_data(request, pk):
                 if date_time_diff > date_time_obj:
                     # print(data[i]['timestamp'])
                     if str(data[i]['timestamp']) in result.keys():
-                        result[str(data[i]['timestamp'])]["Data_missing"] = diff
+                        minutes = diff.seconds/60
+                        result[str(data[i]['timestamp'])]["Data_missing"] = minutes
 
         print(final_result)
 
