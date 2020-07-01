@@ -46,7 +46,7 @@ def upload_book(request):
     })
 
 
-def delete_book(request, pk):
+def parse_data(request, pk):
     if request.method == 'POST':
         book = Book.objects.get(pk=pk)
         base = settings.MEDIA_ROOT
@@ -122,6 +122,13 @@ def delete_book(request, pk):
     return redirect('book_list')
 
 
+def delete_book(request, pk):
+    if request.method == 'POST':
+        book = Book.objects.get(pk=pk)
+        book.delete()
+    return redirect('book_list')
+
+
 class BookListView(ListView):
     model = Book
     template_name = 'class_book_list.html'
@@ -144,13 +151,6 @@ def showdata(request):
     return render(request, 'show_data.html', {
         'data': data
     })
-
-
-def parse_data(request, pk):
-    if request.method == 'POST':
-        book = Book.objects.get(pk=pk)
-        print(book)
-    return redirect('data_list')
 
 
 def data_list(request):

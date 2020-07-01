@@ -13,6 +13,7 @@ urlpatterns = [
     path('books/upload/', views.upload_book, name='upload_book'),
     path('show_data/upload_data/', views.upload_data, name='upload_data'),
     path('books/<int:pk>/', views.delete_book, name='delete_book'),
+    path('books/delete_book/<int:pk>/', views.delete_book, name='parse_data'),
     path('show_data/', views.showdata, name='showdata'),
     path('parse_data/<int:pk>/', views.parse_data, name='parse_data'),
 
